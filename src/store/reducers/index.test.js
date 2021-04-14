@@ -50,4 +50,16 @@ describe('game', () => {
     expect(xResult).toEqual(oState)
     expect(oResult).toEqual(xState)
   })
+
+  it('should set the winning player', () => {
+    const initialState = {
+      winner: null
+    }
+    const expectedState = {
+      winner: 'X'
+    }
+    const result = game(initialState, Actions.gameWon('X'))
+
+    expect(result).toEqual(expectedState)
+  })
 })

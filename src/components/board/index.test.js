@@ -61,3 +61,29 @@ test('disables a cell on click', () => {
 
   expect(firstCell).toBeDisabled();
 });
+
+test('renders the winning player in place of the current player', () => {
+  const state = { game: { winner: 'X', currentPlayer: 'O' } };
+  renderBoard(state);
+
+  const winningPlayer = screen.getByText('Winner X');
+  const currentPlayer = screen.queryByText('Player O');
+
+  expect(winningPlayer).toBeInTheDocument();
+  expect(currentPlayer).toBeNull();
+});
+
+test('disables all cells if there is a winner', () => {
+  const board = createBoard(3);
+  const state = {
+    board,
+    game: { winner: 'X' }
+  };
+  renderBoard(state);
+
+  const cells = findCells();
+
+  cells.forEach((cell) => {
+    expect(cell).toBeDisabled();
+  });
+});

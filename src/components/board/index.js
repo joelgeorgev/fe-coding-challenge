@@ -11,6 +11,7 @@ export const Board = () => {
   const board = useSelector(selectBoard)
   const game = useSelector(selectGame)
   const dispatch = useDispatch()
+  const hasWinner = Boolean(game.winner)
 
   const handleCellClick = (rowIndex, colIndex) => {
     dispatch(selectCell(game.currentPlayer, rowIndex, colIndex))
@@ -19,14 +20,14 @@ export const Board = () => {
   return (
     <div className="Board">
       Board
-      <div>Player {game.currentPlayer}</div>
+      {hasWinner ? <div>Winner {game.winner}</div> : <div>Player {game.currentPlayer}</div>}
       {board.map((row, rowIndex) => (
         <div key={rowIndex} className="Board-row">
           {row.map((cell, colIndex) => (
             <Cell
               key={`${rowIndex}-${colIndex}`}
               value={cell}
-              isDisabled={board[rowIndex][colIndex] !== null}
+              isDisabled={board[rowIndex][colIndex] !== null || hasWinner}
               handleClick={() => handleCellClick(rowIndex, colIndex)}
             />
           ))}

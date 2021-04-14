@@ -12,3 +12,14 @@ describe('selectCell', () => {
     expect(result).toEqual(expectedAction)
   })
 })
+
+describe('gameWon', () => {
+  it('should create an action to indicate the game has won', () => {
+    const expectedAction = {
+      type: Actions.GAME_WON,
+      player: 'X'
+    }
+    const result = Actions.gameWon('X')
+    expect(result).toEqual(expectedAction)
+  })
+})
